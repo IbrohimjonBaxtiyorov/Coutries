@@ -8,7 +8,7 @@ export default function Countries() {
   const [loader, setLoader] = useState(false);
   const [filter, setFilter] = useState("all");
   const [error, setError] = useState(false);
-  const [countryName ,setCoutryName]=useState([])
+  const [countryName, setCoutryName] = useState("Uzbekistan");
   const [region] = useState([
     "all",
     "Africa",
@@ -23,10 +23,11 @@ export default function Countries() {
   };
 
   const handleInput = (e) => {
-    const countryname = e.target.value;
-    setCoutryName(countryname)
-    getCountries(countryName)
-    console.log(countryName);
+    const country = e.target.value;
+    setCoutryName(country);
+    getCountries(countryName);
+    console.log(country);
+    
   };
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export default function Countries() {
       .finally(() => {
         setLoader(false);
       });
-  }, [filter]);
+  }, [filter ]);
 
   if (loader) {
     return (
@@ -54,7 +55,6 @@ export default function Countries() {
   if (error) {
     return <div>{error}</div>;
   }
-  console.log(countries);
 
   return (
     <div className="my-container">
