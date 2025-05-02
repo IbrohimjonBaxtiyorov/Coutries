@@ -8,6 +8,7 @@ export default function Countries() {
   const [loader, setLoader] = useState(false);
   const [filter, setFilter] = useState("all");
   const [error, setError] = useState(false);
+  const [countryName ,setCoutryName]=useState([])
   const [region] = useState([
     "all",
     "Africa",
@@ -21,11 +22,12 @@ export default function Countries() {
     setFilter(value === "all" ? value : "region/" + value);
   };
 
-  const handleInput =(e)=>{
-    const countryName=e.target.value
-    console.log(e);
-    
-  }
+  const handleInput = (e) => {
+    const countryname = e.target.value;
+    setCoutryName(countryname)
+    getCountries(countryName)
+    console.log(countryName);
+  };
 
   useEffect(() => {
     setLoader(true);
@@ -41,8 +43,6 @@ export default function Countries() {
       });
   }, [filter]);
 
-
-
   if (loader) {
     return (
       <div className="absolute inset-0 bg-black/50 flex items-center justify-center w-full h-full">
@@ -54,12 +54,17 @@ export default function Countries() {
   if (error) {
     return <div>{error}</div>;
   }
-console.log(countries);
+  console.log(countries);
 
   return (
     <div className="my-container">
-      <FilterCountry countr={countries} handleChange={handleChange} handleInput={handleInput}/>
-      <div className="flex justify-end my-2.5">
+      <div className="flex justify-between my-2.5 mt-12">
+        <FilterCountry
+          countries={countries}
+          handleChange={handleChange}
+          handleInput={handleInput}
+        />
+
         <select
           value={filter === "all" ? "all" : filter.replace("region/", "")}
           onChange={handleChange}
@@ -73,8 +78,8 @@ console.log(countries);
         </select>
       </div>
       <ul className="grid gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-        {countries.map((el) => {
-          return <CountryCard info={el} />;
+        {countries.map((el, index) => {
+          return <CountryCard key={index} info={el} />;
         })}
       </ul>
     </div>

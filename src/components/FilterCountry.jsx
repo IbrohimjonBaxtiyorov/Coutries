@@ -5,8 +5,7 @@ export default function FilterCountry({
   handleChange,
   handleInput,
 }) {
-    console.log(countries);
-    
+
   return (
     <div className="container mx-auto px-4">
       <form className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-8">
@@ -35,19 +34,6 @@ export default function FilterCountry({
             className="w-full bg-transparent outline-none  dark:text-white"
           />
         </label>
-
-        <select
-          onChange={handleChange}
-          defaultValue="Filter by Region"
-          className="select bg-white dark:bg-gray-800 shadow px-4 py-2 rounded-md text-gray-700 dark:text-white w-full sm:w-1/4"
-        >
-          <option disabled={true}>Filter by Region</option>
-          {countries.map((countery, index) => (
-            <option key={index} value={countery}>
-              {countery}
-            </option>
-          ))}
-        </select>
       </form>
     </div>
   );
