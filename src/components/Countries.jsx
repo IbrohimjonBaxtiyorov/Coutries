@@ -8,7 +8,7 @@ export default function Countries() {
   const [loader, setLoader] = useState(false);
   const [filter, setFilter] = useState("all");
   const [error, setError] = useState(false);
-  const [countryName, setCoutryName] = useState("Uzbekistan");
+  const [countryName, setCoutryName] = useState("");
   const [region] = useState([
     "all",
     "Africa",
@@ -25,9 +25,9 @@ export default function Countries() {
   const handleInput = (e) => {
     const country = e.target.value;
     setCoutryName(country);
-    getCountries(countryName);
-    console.log(country);
-    
+    getCountries("", countryName).then((res) => {
+      setCountries(res);
+    });
   };
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function Countries() {
       .finally(() => {
         setLoader(false);
       });
-  }, [filter ]);
+  }, [filter]);
 
   if (loader) {
     return (
@@ -72,8 +72,8 @@ export default function Countries() {
           className="select"
         >
           <option disabled={true}>Filter by region</option>
-          {region.map((el) => {
-            return <option>{el}</option>;
+          {region.map((el, index) => {
+            return <option key={index + 1}>{el}</option>;
           })}
         </select>
       </div>

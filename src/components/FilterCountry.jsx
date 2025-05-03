@@ -5,7 +5,6 @@ export default function FilterCountry({
   handleChange,
   handleInput,
 }) {
-
   return (
     <div className="container mx-auto px-4">
       <form className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-8">
